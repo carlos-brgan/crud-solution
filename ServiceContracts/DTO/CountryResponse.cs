@@ -12,7 +12,25 @@ namespace ServiceContracts.DTO
         public string? CountryName { get; set; }
 
 
+        //It compares the current object with another object
+        public override bool Equals(object? obj)
+        {
+            if (obj == null) return false;
 
+            if (obj.GetType() != typeof(CountryResponse))
+            {
+                return false;
+            }
+
+            CountryResponse other = (CountryResponse)obj;
+
+            return this.CountryID == other.CountryID && this.CountryName == other.CountryName;
+        }
+
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
+        }
     }
 
     public static class CountryExtensions

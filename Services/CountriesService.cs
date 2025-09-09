@@ -46,7 +46,7 @@ namespace Services
 
         public List<CountryResponse> GetAllCountries()
         {
-            throw new NotImplementedException();
+            return _countries.Select(temp => temp.ToCountryResponse()).ToList();
         }
     }
 }

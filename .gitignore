@@ -1,0 +1,27 @@
+@'
+# Visual Studio
+.vs/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Build output
+bin/
+obj/
+[Bb]uild/
+[Ll]og/
+
+# Rider/VS Code
+.idea/
+.vscode/
+
+# Others
+*.cache
+*.db
+*.opendb
+*.ide
+*.pidb
+*.svclog
+*.pdb
+'@ | Set-Content .gitignore -Encoding ascii

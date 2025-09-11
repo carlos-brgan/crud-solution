@@ -3,6 +3,7 @@ using Entities;
 using ServiceContracts.DTO;
 using ServiceContracts;
 using System.ComponentModel.DataAnnotations;
+using Services.Helpers;
 
 namespace Services
 {
@@ -35,22 +36,8 @@ namespace Services
                 throw new ArgumentNullException(nameof(personAddRequest));
             }
 
-            //Model validations
-            ValidationContext validationContext = new ValidationContext(personAddRequest);
-
-            List<ValidationResult> validationResults = new List<ValidationResult>();
-            bool isValid = Validator.TryValidateObject(personAddRequest, validationContext, validationResults, true);
-
-            if(!isValid)
-            {
-                throw new ArgumentException(validationResults.FirstOrDefault()?.ErrorMessage);
-            }
-
-            //Validate PersonName is not null
-            if (string.IsNullOrEmpty(personAddRequest.PersonName))
-            {
-                throw new ArgumentException("PersonName can't be blank");
-            }
+            //Model validation
+            ValidationHelper.ModelValidation(personAddRequest);
 
             //convert personAddRequest into Person type
             Person person = personAddRequest.ToPerson();
@@ -68,7 +55,22 @@ namespace Services
 
         public List<PersonResponse> GetAllPersons()
         {
-            throw new NotImplementedException();
+            return _persons.Select(temp => temp.ToPersonResponse()).ToList();
+        }
+
+
+        public PersonResponse? GetPersonByPersonID(Guid? personID)
+        {
+            if (personID == null) return null;
+
+            Person? person = _persons.FirstOrDefault(temp => temp.PersonID == personID);
+
+            if(person == null)
+            {
+                return null;
+            }
+
+            return person.ToPersonResponse();
         }
     }
 }

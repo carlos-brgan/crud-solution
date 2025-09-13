@@ -27,5 +27,16 @@ namespace ServiceContracts
         /// </summary>
         /// <param name="personID"></param>
         PersonResponse GetPersonByPersonID(Guid? personID);
+
+
+        /// <summary>
+        /// Retrieves a list of persons filtered based on the specified search criteria.
+        /// </summary>
+        /// <param name="searchBy">The field to filter by. Valid values may include "Name", "City", or other supported fields. If null or
+        /// empty, no specific field is used for filtering.</param>
+        /// <param name="searchString">The value to search for within the specified field. If null or empty, no filtering is applied.</param>
+        /// <returns>A list of <see cref="PersonResponse"/> objects that match the specified search criteria. Returns an empty
+        /// list if no matches are found.</returns>
+        public List<PersonResponse> GetFilteredPersons(string? searchBy, string? searchString);
     }
 }
